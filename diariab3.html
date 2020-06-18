@@ -34,32 +34,7 @@
 
     fetch(url)
         .then((resp) => resp.json())
-        .then((data) => {
-    //        console.log(data);
-            let resultado = data.map(cotacao => {
-                result = (1-(cotacao.precoFechamento/cotacao.precoAbertura))*100;
-                return  parseFloat(result.toFixed(2));
-            });
-            console.log(resultado);
-            var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
-
-    // The data for our dataset
-    data: {
-        labels: ['01', '02', '03', '04', '05', '06', '07'],
-        datasets: [
-            { label: 'MGLU3',
-              backgroundColor: 'rgb(0, 99, 132)',
-              borderColor: 'rgb(0, 99, 132)',
-              data: resultado
-            }
-            ]
-    },
-    // Configuration options go here
-    options: {}
-});
-        })
+        .then(renderChart)
         .catch((error) => {
             console.log('Opps!! ' + error);
         });
@@ -100,6 +75,35 @@ var chart = new Chart(ctx, {
     options: {}
 });
 */
+
+function renderChart(data) {
+    //        console.log(data);
+            let resultado = data.map(cotacao => {
+                result = (1-(cotacao.precoFechamento/cotacao.precoAbertura))*100;
+                return  parseFloat(result.toFixed(2));
+            });
+            console.log(resultado);
+            var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ['01', '02', '03', '04', '05', '06', '07'],
+        datasets: [
+            { label: 'MGLU3',
+              backgroundColor: 'rgb(0, 99, 132)',
+              borderColor: 'rgb(0, 99, 132)',
+              data: resultado
+            }
+            ]
+    },
+    // Configuration options go here
+    options: {}
+});
+        }
+
+
 function updateChart(){
 //    chart.data.datasets[0].data = newdata;
 //    chart.data.datasets[1].data = newdata1;
