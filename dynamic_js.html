@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Dynamic Chart Js</title>
+</head>
+<body class="bg-warning ">
+    <div class="col-md-6 offset-md-3 py-5">
+        <div class="card border-light">
+            <div class="card-body" align="center">
+                <h1>Dynamic Chart JS</h1>
+            </div>
+            <div class="card-body" align="center">
+                <button class="btn btn-primary" onclick="addFirst()">+ 1 Data</button>
+                <button class="btn btn-primary" onclick="removeFirst()">- 1 Data</button>
+                <button class="btn btn-success" onclick="updateChart()">Update</button>
+                <button class="btn btn-primary" onclick="addLast()">+ 1 Label</button>
+                <button class="btn btn-danger" onclick="removeLast()">- 1 Label</button>
+            </div>
+            <div class="card-body">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+<script>
+    var olddata = [0, 10, 5, 2, 20, 30, 45];
+    var newdata = [10, 20, 30, 42, 50, 60, 70];
+
+    var olddata1 = [99, 80, 75, 62, 50, 40, 35];
+    var newdata1 = [5, 10, 55, 15, 20, 55, 25];
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+            { label: 'My First dataset',
+//              backgroundColor: 'rgb(0, 99, 132)',
+              borderColor: 'rgb(0, 99, 132)',
+              data: olddata
+            },
+            { label: 'My Second dataset',
+//              backgroundColor: 'rgb(0, 200, 0)',
+              borderColor: 'rgb(0, 200, 0)',
+              data: olddata1
+            }
+            ]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+function updateChart(){
+//    chart.data.datasets[0].data = newdata;
+//    chart.data.datasets[1].data = newdata1;
+      chart.data.labels = ['August', 'September', 'October', 'November', 'December'];
+    chart.update();
+};
+
+function addFirst(){
+    chart.data.datasets[0].data.unshift(650);
+    chart.update();
+}
+
+function addLast(){
+    chart.data.datasets[0].data.push(700);
+    chart.data.labels.push("January");
+    chart.update();
+}
+
+function removeLast(){
+    chart.data.labels.pop();
+    chart.update();
+}
+
+function removeFirst(){
+    chart.data.datasets[0].data.shift();
+    chart.update();
+}
+
+</script>    
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
